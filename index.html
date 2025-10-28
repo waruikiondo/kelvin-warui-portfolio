@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelvin Warui - Flutter Developer & MVP Specialist</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom Font */
@@ -29,14 +28,46 @@
             width: auto;
             object-fit: contain; /* Ensures the whole image is visible */
         }
-        /* Hide all slides by default */
-        .carousel-item {
-            display: none;
-            transition: opacity 0.5s ease-in-out;
-        }
-        .carousel-item.active {
+        
+        /* --- CAROUSEL FIX START --- */
+        
+        /* The container that moves */
+        .carousel-container {
             display: flex;
+            transition: transform 0.5s ease-in-out; /* Smooth slide animation */
+            width: 100%; /* Important: Will be recalculated in JS based on slides */
         }
+
+        /* Each slide takes up the full width of the viewport/parent */
+        .carousel-item {
+            min-width: 100%; /* Each item takes 100% of the carousel-container's *visible* width */
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0; /* Prevents items from squishing */
+            background-color: #f3f4f6; /* Subtle grey background for the slide area */
+            padding: 1rem;
+        }
+        
+        /* The main carousel wrapper needs to hide overflow */
+        .carousel-wrapper {
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+        }
+
+        /* Hide the default arrows in the projects where they overlap the screenshot arrows */
+        #carousel-chartzy .carousel-btn,
+        #carousel-askbiblically .carousel-btn,
+        #carousel-zzpconnect .carousel-btn,
+        #carousel-renlak .carousel-btn
+        {
+            /* You can hide the buttons if the screenshots include their own arrows */
+            /* display: none; */ 
+        }
+
+        /* --- CAROUSEL FIX END --- */
+
         /* Button style for carousel */
         .carousel-btn {
             background-color: rgba(0, 0, 0, 0.4);
@@ -56,7 +87,6 @@
 </head>
 <body class="text-gray-900">
 
-    <!-- Header & Navigation -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-extrabold accent-blue">Kelvin Warui</h1>
@@ -71,7 +101,6 @@
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- 01. Hero Section -->
         <section id="hero" class="pt-24 pb-32">
             <div class="max-w-4xl mx-auto text-center">
                 <span class="text-sm font-semibold uppercase tracking-widest text-gray-500">
@@ -81,7 +110,7 @@
                     <span class="accent-blue">FLUTTER DEVELOPER</span> & MVP SPECIALIST
                 </h2>
                 <p class="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
-                    I help startups launch **AI & Fintech apps** in weeks, not months. Experienced in full-stack mobile and web development (**Flutter/WordPress**), specializing in database architecture (Supabase/Firebase) and complex integrations (AI, Payments). Ready to build your next market-ready application.
+                    I help startups launch <strong>AI & Fintech apps</strong> in weeks, not months. Experienced in full-stack mobile and web development (<strong>Flutter/WordPress</strong>), specializing in database architecture (Supabase/Firebase) and complex integrations (AI, Payments). Ready to build your next market-ready application.
                 </p>
                 <div class="mt-8">
                     <a href="#projects" class="inline-block bg-accent-blue text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
@@ -91,14 +120,13 @@
             </div>
         </section>
 
-        <!-- 02. About Section -->
         <section id="about" class="py-20">
             <h3 class="text-3xl font-bold mb-8 border-b-2 border-accent-blue pb-2">02. About Me</h3>
             <div class="grid lg:grid-cols-3 gap-10 text-lg text-gray-700">
                 <div class="lg:col-span-2 space-y-4">
-                    <p>My core focus is delivering **Minimum Viable Products (MVPs)** quickly and efficiently, primarily using **Flutter** and **FlutterFlow** for cross-platform mobile and web applications. This allows businesses to validate ideas faster and secure early user feedback.</p>
-                    <p>I specialize in handling the **full stack**, from intuitive UI/UX design and data architecture (using **Supabase** and **Firebase**) to complex backend integrations, including AI services (like OpenAI), payment gateways (Stripe, RevenueCat), and custom API development.</p>
-                    <p>Beyond mobile apps, I leverage **WordPress** and modern web development practices to build high-performance e-commerce and consultancy platforms, ensuring high website speed and robust functionality.</p>
+                    <p>My core focus is delivering <strong>Minimum Viable Products (MVPs)</strong> quickly and efficiently, primarily using <strong>Flutter</strong> and <strong>FlutterFlow</strong> for cross-platform mobile and web applications. This allows businesses to validate ideas faster and secure early user feedback.</p>
+                    <p>I specialize in handling the <strong>full stack</strong>, from intuitive UI/UX design and data architecture (using <strong>Supabase</strong> and <strong>Firebase</strong>) to complex backend integrations, including AI services (like OpenAI), payment gateways (Stripe, RevenueCat), and custom API development.</p>
+                    <p>Beyond mobile apps, I leverage <strong>WordPress</strong> and modern web development practices to build high-performance e-commerce and consultancy platforms, ensuring high website speed and robust functionality.</p>
                 </div>
                 <div class="lg:col-span-1 p-6 bg-white rounded-xl shadow-lg">
                     <p class="text-xl font-semibold mb-3 accent-blue">Contact Quick Links</p>
@@ -111,54 +139,45 @@
             </div>
         </section>
 
-        <!-- 03. Skills & Tech Stack -->
         <section id="skills" class="py-20 bg-gray-50 rounded-xl shadow-inner">
             <h3 class="text-3xl font-bold mb-8 text-center border-b-2 border-accent-blue pb-2 mx-auto w-fit">03. Tech Stack & Expertise</h3>
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-12">
                 
-                <!-- Skill Card 1: Flutter -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">📱</span>
                     <p class="mt-2 font-semibold">Flutter / Dart</p>
                     <p class="text-sm text-gray-500">Cross-Platform Development</p>
                 </div>
-                <!-- Skill Card 2: FlutterFlow -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">🚀</span>
                     <p class="mt-2 font-semibold">FlutterFlow</p>
                     <p class="text-sm text-gray-500">Rapid Prototyping & Build</p>
                 </div>
-                <!-- Skill Card 3: Supabase -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">🗄️</span>
                     <p class="mt-2 font-semibold">Supabase / Firebase</p>
                     <p class="text-sm text-gray-500">Realtime Database & Auth</p>
                 </div>
-                <!-- Skill Card 4: WordPress -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">🌐</span>
                     <p class="mt-2 font-semibold">WordPress / CMS</p>
                     <p class="text-sm text-gray-500">Full Website & E-commerce</p>
                 </div>
-                <!-- Skill Card 5: Integrations -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">🔗</span>
                     <p class="mt-2 font-semibold">API Integrations</p>
                     <p class="text-sm text-gray-500">AI, Payments, Custom APIs</p>
                 </div>
-                <!-- Skill Card 6: UI/UX -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">🎨</span>
                     <p class="mt-2 font-semibold">UI/UX Design</p>
                     <p class="text-sm text-gray-500">Wireframing & Mockups</p>
                 </div>
-                <!-- Skill Card 7: Web Dev -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">💻</span>
                     <p class="mt-2 font-semibold">Web Development</p>
                     <p class="text-sm text-gray-500">HTML, CSS, JavaScript</p>
                 </div>
-                <!-- Skill Card 8: E-commerce -->
                 <div class="p-4 bg-white rounded-lg shadow-md text-center hover:shadow-xl transition">
                     <span class="text-3xl accent-blue">🛒</span>
                     <p class="mt-2 font-semibold">WooCommerce</p>
@@ -167,54 +186,48 @@
             </div>
         </section>
 
-        <!-- 04. Projects Section -->
         <section id="projects" class="py-20">
             <h3 class="text-3xl font-bold mb-12 border-b-2 border-accent-blue pb-2">04. Featured Projects (9 Total)</h3>
             
             <h4 class="text-2xl font-bold mb-6 mt-12 text-gray-700">Mobile App & FinTech Projects</h4>
 
-            <!-- Project 1: AskBiblically (Text Left) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-1 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 01</span>
                     <h4 class="text-4xl font-extrabold accent-blue">AskBiblically</h4>
                     <p class="text-gray-700 text-lg">A community-focused AI application integrating religious texts with social interaction features, built for real-time discussion and spiritual guidance.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Role:** Full Stack Development (FlutterFlow, Supabase)</li>
-                        <li>**Features:** Open AI ChatGPT Integration, User Q&A History, Community Feed, Social Posting, User Roles, Stripe Subscriptions.</li>
+                        <li><strong>Role:</strong> Full Stack Development (FlutterFlow, Supabase)</li>
+                        <li><strong>Features:</strong> Open AI ChatGPT Integration, User Q&A History, Community Feed, Social Posting, User Roles, Stripe Subscriptions.</li>
                     </ul>
                     <a href="#" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Playstore Link (Testing) &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-2">
-                    <!-- Carousel Container -->
-                    <div id="carousel-askbiblically" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-1.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-1.jpg.png" alt="AskBiblically Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 2 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-2.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-2.jpg.png" alt="AskBiblically Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 3 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-3.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-3.jpg.png" alt="AskBiblically Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 4 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-4.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-4.jpg.png" alt="AskBiblically Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-askbiblically" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-1.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-1.jpg.png" alt="AskBiblically Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-2.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-2.jpg.png" alt="AskBiblically Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-3.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-3.jpg.png" alt="AskBiblically Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-4.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/askbiblically-4.jpg.png" alt="AskBiblically Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Carousel Buttons -->
                         <button onclick="changeSlide('carousel-askbiblically', -1)" class="carousel-btn absolute top-1/2 left-0 transform -translate-y-1/2 p-3 text-white rounded-r-lg focus:outline-none">
                             &#10094;
                         </button>
@@ -225,54 +238,48 @@
                 </div>
             </div>
 
-            <!-- Project 2: Chartzy (Text Right) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-2 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 02</span>
                     <h4 class="text-4xl font-extrabold accent-blue">Chartzy (Caregiver App)</h4>
                     <p class="text-gray-700 text-lg">A crucial caregiving and patient management application enabling real-time logging, scheduling, and tracking of medications, feeds, and appointments.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Role:** Full Stack Development (FlutterFlow, Supabase)</li>
-                        <li>**Features:** Real-time logging of doses, Patient Profiles, Reminder System, Firebase Push Alerts, Subscription Tier Logic, Multi-device Sync.</li>
+                        <li><strong>Role:</strong> Full Stack Development (FlutterFlow, Supabase)</li>
+                        <li><strong>Features:</strong> Real-time logging of doses, Patient Profiles, Reminder System, Firebase Push Alerts, Subscription Tier Logic, Multi-device Sync.</li>
                     </ul>
                     <a href="#" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Web App Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-1">
-                    <!-- Carousel Container -->
-                    <div id="carousel-chartzy" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-1.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-1.jpg.png" alt="Chartzy Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 2 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-2.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-2.jpg.png" alt="Chartzy Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 3 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-3.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-3.jpg.png" alt="Chartzy Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 4 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-4.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-4.jpg.png" alt="Chartzy Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 5 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-5.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-5.jpg.png" alt="Chartzy Screenshot 5" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-chartzy" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-1.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-1.jpg.png" alt="Chartzy Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-2.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-2.jpg.png" alt="Chartzy Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-3.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-3.jpg.png" alt="Chartzy Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-4.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-4.jpg.png" alt="Chartzy Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-5.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/chartzy-5.jpg.png" alt="Chartzy Screenshot 5" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Carousel Buttons -->
                         <button onclick="changeSlide('carousel-chartzy', -1)" class="carousel-btn absolute top-1/2 left-0 transform -translate-y-1/2 p-3 text-white rounded-r-lg focus:outline-none">
                             &#10094;
                         </button>
@@ -283,48 +290,43 @@
                 </div>
             </div>
 
-            <!-- Project 3: ZZP Connect (Text Left) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-1 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 03</span>
                     <h4 class="text-4xl font-extrabold accent-blue">ZZP Connect (Job Matching)</h4>
                     <p class="text-gray-700 text-lg">A powerful marketplace connecting job posters and skilled workers (ZZP) with real-time bidding, messaging, and profile management for streamlined service acquisition.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Role:** MVP Specialist (FlutterFlow, Supabase)</li>
-                        <li>**Features:** Job Posting/Search, Real-time Bid/Matching System, In-app Messaging, Premium Tiers, Stripe Transaction Fees, Cross-platform access.</li>
+                        <li><strong>Role:</strong> MVP Specialist (FlutterFlow, Supabase)</li>
+                        <li><strong>Features:</strong> Job Posting/Search, Real-time Bid/Matching System, In-app Messaging, Premium Tiers, Stripe Transaction Fees, Cross-platform access.</li>
                     </ul>
                     <a href="#" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Web App Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-2">
-                    <!-- Carousel Container -->
-                    <div id="carousel-zzpconnect" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-1.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-1.jpg.png" alt="ZZP Connect Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 2 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-2.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-2.jpg.png" alt="ZZP Connect Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 3 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-3.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-3.jpg.png" alt="ZZP Connect Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 4 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-4.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-4.jpg.png" alt="ZZP Connect Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-zzpconnect" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-1.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-1.jpg.png" alt="ZZP Connect Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-2.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-2.jpg.png" alt="ZZP Connect Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-3.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-3.jpg.png" alt="ZZP Connect Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-4.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/ZZPConnect-4.jpg.png" alt="ZZP Connect Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Carousel Buttons -->
                         <button onclick="changeSlide('carousel-zzpconnect', -1)" class="carousel-btn absolute top-1/2 left-0 transform -translate-y-1/2 p-3 text-white rounded-r-lg focus:outline-none">
                             &#10094;
                         </button>
@@ -335,54 +337,48 @@
                 </div>
             </div>
 
-            <!-- Project 4: Renlak Crowdfund (Text Right) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-2 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 04</span>
                     <h4 class="text-4xl font-extrabold accent-blue">Renlak Crowdfund</h4>
                     <p class="text-gray-700 text-lg">A full-featured crowdfunding and donation platform allowing users to create campaigns, log contributions, and manage multiple payment gateways.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Role:** Full Stack Development (FlutterFlow, Firebase)</li>
-                        <li>**Features:** MTN Mobile Money API, Stripe/PayPal Integration, Real-time Donation Updates, Campaign Creation, Donation Tracking and Reports.</li>
+                        <li><strong>Role:</strong> Full Stack Development (FlutterFlow, Firebase)</li>
+                        <li><strong>Features:</strong> MTN Mobile Money API, Stripe/PayPal Integration, Real-time Donation Updates, Campaign Creation, Donation Tracking and Reports.</li>
                     </ul>
                     <a href="#" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Website Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-1">
-                    <!-- Carousel Container -->
-                    <div id="carousel-renlak" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-1.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-1.jpg.png" alt="Renlak Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 2 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-2.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-2.jpg.png" alt="Renlak Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 3 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-3.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-3.jpg.png" alt="Renlak Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 4 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-4.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-4.jpg.png" alt="Renlak Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
-                            </div>
-                            <!-- Slide 5 -->
-                            <div class="carousel-item flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-5.jpg.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-5.jpg.png" alt="Renlak Screenshot 5" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-renlak" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-1.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-1.jpg.png" alt="Renlak Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-2.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-2.jpg.png" alt="Renlak Screenshot 2" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-3.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-3.jpg.png" alt="Renlak Screenshot 3" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-4.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-4.jpg.png" alt="Renlak Screenshot 4" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-5.jpg.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/Renlak-5.jpg.png" alt="Renlak Screenshot 5" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Carousel Buttons -->
                         <button onclick="changeSlide('carousel-renlak', -1)" class="carousel-btn absolute top-1/2 left-0 transform -translate-y-1/2 p-3 text-white rounded-r-lg focus:outline-none">
                             &#10094;
                         </button>
@@ -393,139 +389,132 @@
                 </div>
             </div>
 
-            <!-- Web & CMS Projects Section -->
             <h4 class="text-2xl font-bold mb-6 mt-16 text-gray-700">Web & CMS (WordPress) Projects</h4>
 
-            <!-- Project 5: Kenbe Electronics (Text Left) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-1 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 05</span>
                     <h4 class="text-4xl font-extrabold accent-blue">Kenbe Electronics</h4>
                     <p class="text-gray-700 text-lg">A high-performance e-commerce store specialized for electronics, built for fast loading and secure WooCommerce integration using a custom theme.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Stack:** WordPress, WooCommerce, Custom Theme, Hostinger</li>
-                        <li>**Services:** Website development, customization, maintenance, WooCommerce integration.</li>
+                        <li><strong>Stack:</strong> WordPress, WooCommerce, Custom Theme, Hostinger</li>
+                        <li><strong>Services:</strong> Website development, customization, maintenance, WooCommerce integration.</li>
                     </ul>
                     <a href="https://kenbeelectronics.com" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Live Site Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-2">
-                    <!-- Carousel Container -->
-                    <div id="carousel-kenbe" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/wp-kenbe-1.png.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/wp-kenbe-1.png.png" alt="Kenbe Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-kenbe" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/wp-kenbe-1.png.png" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/wp-kenbe-1.png.png" alt="Kenbe Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <!-- Carousel Buttons (Hidden if only one image) -->
-                    </div>
+                        </div>
                 </div>
             </div>
 
-            <!-- Project 6: snacpapc (Text Right) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-2 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 06</span>
                     <h4 class="text-4xl font-extrabold accent-blue">snacpapc Website</h4>
                     <p class="text-gray-700 text-lg">A professional consultancy website for a Chartered Professional Accountant (CPA), focused on clear service areas, credibility, and appointment booking integration.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Stack:** WordPress, Custom Theme, Hostinger</li>
-                        <li>**Services:** Website development, customization, maintenance.</li>
+                        <li><strong>Stack:</strong> WordPress, Custom Theme, Hostinger</li>
+                        <li><strong>Services:</strong> Website development, customization, maintenance.</li>
                     </ul>
                     <a href="https://snacpapc.com" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Live Site Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-1">
-                    <!-- Carousel Container -->
-                    <div id="carousel-snacpapc" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/snacpapc.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/brothers.png.png" alt="snacpapc Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-snacpapc" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://snacpapc.com" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/snacpapc.png" alt="snacpapc Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 7: JabaliCanada (Text Left) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-1 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 07</span>
                     <h4 class="text-4xl font-extrabold accent-blue">JabaliCanada</h4>
                     <p class="text-gray-700 text-lg">A community-focused non-profit website designed with Elementor for easy content updates, speed optimization, and seamless volunteer/donation pathways.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Stack:** WordPress, Elementor, Namecheap Hosting</li>
-                        <li>**Services:** Website development, design, plugin installation, speed optimization.</li>
+                        <li><strong>Stack:</strong> WordPress, Elementor, Namecheap Hosting</li>
+                        <li><strong>Services:</strong> Website development, design, plugin installation, speed optimization.</li>
                     </ul>
                     <a href="https://jabalicanada.org" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Live Site Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-2">
-                    <!-- Carousel Container -->
-                    <div id="carousel-jabalicanada" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/jabalicanada-1.png.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/jabalicanada-1.png.png" alt="JabaliCanada Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-jabalicanada" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://jabalicanada.org" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/jabalicanada-1.png.png" alt="JabaliCanada Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 8: Tancana International (Text Right) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-2 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 08</span>
                     <h4 class="text-4xl font-extrabold accent-blue">Tancana International</h4>
                     <p class="text-gray-700 text-lg">A Global Consultancy platform focused on public-private partnerships (PPP), using Elementor for flexible content and strong brand representation.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Stack:** WordPress, Elementor, Namecheap Hosting</li>
-                        <li>**Services:** Website development, customization, maintenance.</li>
+                        <li><strong>Stack:</strong> WordPress, Elementor, Namecheap Hosting</li>
+                        <li><strong>Services:</strong> Website development, customization, maintenance.</li>
                     </ul>
                     <a href="https://tancanainternational.com" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Live Site Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-1">
-                    <!-- Carousel Container -->
-                    <div id="carousel-tancana" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/tancanainternational-1.png.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/tancanainternational-1.png.png" alt="Tancana Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-tancana" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://tancanainternational.com" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/tancanainternational-1.png.png" alt="Tancana Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 9: BrachelJones Realty (Text Left) -->
             <div class="grid lg:grid-cols-2 gap-10 py-12 border-b border-gray-200 project-layout">
                 <div class="order-2 lg:order-1 space-y-4">
                     <span class="text-sm font-semibold text-gray-500">PROJECT 09</span>
                     <h4 class="text-4xl font-extrabold accent-blue">BrachelJones Realty</h4>
                     <p class="text-gray-700 text-lg">A custom real estate platform focusing on property search integration, website speed optimization, and reliable plugin management for a smooth user experience.</p>
                     <ul class="list-disc list-inside text-gray-600 space-y-1 mt-4 text-sm font-medium">
-                        <li>**Stack:** WordPress, Custom Theme</li>
-                        <li>**Services:** Website development, customization, plugin installation, speed optimization.</li>
+                        <li><strong>Stack:</strong> WordPress, Custom Theme</li>
+                        <li><strong>Services:</strong> Website development, customization, plugin installation, speed optimization.</li>
                     </ul>
                     <a href="https://bracheljones.com" target="_blank" class="inline-block mt-4 text-sm font-semibold accent-blue hover:underline">Live Site Link &rarr;</a>
                 </div>
                 <div class="order-1 lg:order-2">
-                    <!-- Carousel Container -->
-                    <div id="carousel-bracheljones" class="relative w-full overflow-hidden rounded-xl shadow-2xl">
-                        <div class="carousel-container">
-                            <!-- Slide 1 -->
-                            <div class="carousel-item active flex justify-center items-center bg-gray-100 p-4">
-                                <a href="https://waruikiondo.github.io/kelvin-warui-portfolio/images/bracheljonesrealty-1.png.png" target="_blank">
-                                    <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/bracheljonesrealty-1.png.png" alt="BrachelJones Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
-                                </a>
+                    <div id="carousel-bracheljones" class="relative w-full" data-slide-index="0">
+                        <div class="carousel-wrapper">
+                            <div class="carousel-container">
+                                <div class="carousel-item">
+                                    <a href="https://bracheljones.com" target="_blank">
+                                        <img src="https://waruikiondo.github.io/kelvin-warui-portfolio/images/bracheljonesrealty-1.png.png" alt="BrachelJones Screenshot 1" class="rounded-lg shadow-md transition duration-300 hover:scale-[1.02] p-4">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -535,7 +524,6 @@
 
         </section>
 
-        <!-- 05. Contact Section -->
         <section id="contact" class="py-20 text-center">
             <h3 class="text-3xl font-bold mb-8 border-b-2 border-accent-blue pb-2 mx-auto w-fit">05. Get In Touch</h3>
             <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-10">
@@ -556,81 +544,79 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white text-center py-6 mt-10">
         <p class="text-sm">&copy; 2025 Kelvin Warui. Built with Tailwind CSS and Passion.</p>
     </footer>
 
-    <!-- JavaScript for Carousel Functionality and Swiping -->
     <script>
         // Function to change the visible slide
         function changeSlide(carouselId, direction) {
             const carousel = document.getElementById(carouselId);
+            const container = carousel.querySelector('.carousel-container');
             const items = carousel.querySelectorAll('.carousel-item');
-            let currentIndex = -1;
+            
+            if (items.length <= 1) return; // No need to slide if 0 or 1 item
 
-            items.forEach((item, index) => {
-                if (item.classList.contains('active')) {
-                    currentIndex = index;
-                    item.classList.remove('active');
-                }
-            });
+            let currentIndex = parseInt(carousel.getAttribute('data-slide-index')) || 0;
+            let newIndex = currentIndex + direction;
 
-            if (currentIndex !== -1) {
-                let newIndex = currentIndex + direction;
-
-                // Loop around logic
-                if (newIndex >= items.length) {
-                    newIndex = 0;
-                } else if (newIndex < 0) {
-                    newIndex = items.length - 1;
-                }
-
-                items[newIndex].classList.add('active');
-            } else if (items.length > 0) {
-                // Default to the first item if no active item is found
-                items[0].classList.add('active');
+            // Loop around logic
+            if (newIndex >= items.length) {
+                newIndex = 0;
+            } else if (newIndex < 0) {
+                newIndex = items.length - 1;
             }
+
+            // Calculate the translateX value to show the new slide
+            const translateValue = -newIndex * 100; // -100% for the second slide, -200% for the third, etc.
+            
+            container.style.transform = `translateX(${translateValue}%)`;
+            
+            // Update the active index in the data attribute
+            carousel.setAttribute('data-slide-index', newIndex);
         }
 
-        // Initialize Carousels on Load
+        // Initialize Carousels and Add Swipe Functionality on Load
         document.addEventListener('DOMContentLoaded', () => {
             const carousels = document.querySelectorAll('[id^="carousel-"]');
             carousels.forEach(carousel => {
+                const container = carousel.querySelector('.carousel-container');
                 const items = carousel.querySelectorAll('.carousel-item');
-                // Ensure only the first item is active initially
-                if (items.length > 0) {
-                    items.forEach((item, index) => {
-                        item.classList.remove('active');
-                        if (index === 0) {
-                            item.classList.add('active');
-                        }
-                    });
+                
+                // Initialize transform to 0% to show the first slide
+                if (container) {
+                     container.style.transform = 'translateX(0%)';
                 }
+                carousel.setAttribute('data-slide-index', '0');
 
                 // Add swipe/touch functionality for each carousel
                 let touchStartX = 0;
                 let touchEndX = 0;
+                
+                // Only enable swipe if there is more than one slide
+                if (items.length > 1) {
+                    
+                    carousel.addEventListener('touchstart', (e) => {
+                        touchStartX = e.changedTouches[0].screenX;
+                    }, false);
 
-                carousel.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, false);
+                    carousel.addEventListener('touchend', (e) => {
+                        touchEndX = e.changedTouches[0].screenX;
+                        handleSwipe();
+                    }, false);
+                }
 
-                carousel.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    handleSwipe();
-                }, false);
 
                 function handleSwipe() {
                     const swipeThreshold = 50; // Minimum distance for a swipe
 
                     if (touchEndX < touchStartX - swipeThreshold) {
-                        // Swiped Left (Show Next)
+                        // Swiped Left (Show Next: direction 1)
                         changeSlide(carousel.id, 1);
                     } else if (touchEndX > touchStartX + swipeThreshold) {
-                        // Swiped Right (Show Previous)
+                        // Swiped Right (Show Previous: direction -1)
                         changeSlide(carousel.id, -1);
-                    }
+                        }
                 }
             });
         });
