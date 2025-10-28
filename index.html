@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelvin Warui - Flutter & FlutterFlow Developer Portfolio</title>
+    <title>Kelvin Warui - Flutter Developer & MVP Specialist Portfolio</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Configure Tailwind for Inter font -->
@@ -75,10 +75,10 @@
                 Kelvin Warui
             </h1>
             <h2 class="text-xl sm:text-2xl font-semibold text-primary-blue mb-6">
-                FLUTTER & FLUTTERFLOW DEVELOPER
+                FLUTTER DEVELOPER & MVP SPECIALIST
             </h2>
             <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-10">
-                Building robust, multi-platform applications. I specialize in cross-platform development, UI/UX implementation, and powerful backend integrations with **Supabase** and **Firebase**.
+                I help startups launch **AI & Fintech apps in weeks, not months**. Experienced in full-stack mobile and web development (Flutter/WordPress), specializing in database architecture (Supabase/Firebase) and complex integrations (AI, Payments). Ready to build your next market-ready application.
             </p>
             <a href="#projects" class="inline-block px-8 py-3 bg-primary-blue text-white font-semibold rounded-lg shadow-xl hover:bg-blue-800 transition duration-300 transform hover:scale-[1.02]">
                 View Projects
@@ -450,15 +450,16 @@
             <h2 class="text-3xl font-bold text-center text-primary-blue mb-12">Tech Stack (02)</h2>
             <div class="max-w-4xl mx-auto">
                 <p class="text-lg text-gray-600 mb-8 text-center">
-                    A snapshot of the tools and platforms I use to deliver powerful, multi-platform solutions.
+                    A snapshot of the tools and platforms I use to deliver powerful, multi-platform solutions, from native mobile apps to managed web platforms.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">Flutter & Dart</span>
                     <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">FlutterFlow</span>
+                    <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">WordPress Development</span>
+                    <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">Web Development (HTML/CSS/JS)</span>
                     <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">Supabase</span>
                     <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">Firebase</span>
                     <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">OpenAI Integration</span>
-                    <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">UI/UX Design</span>
                     <span class="px-4 py-2 bg-gray-100 text-text-dark font-medium rounded-full shadow-sm">Payment Gateways (Stripe, PayPal)</span>
                 </div>
             </div>
@@ -529,6 +530,32 @@
                 slides[newIndex].classList.add('active');
             }
         }
+        
+        /**
+         * Swipe functionality for touch devices.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-carousel-id]').forEach(carousel => {
+                let touchStartX = 0;
+                let touchEndX = 0;
+                const minSwipeDistance = 50; // Minimum distance for a recognized swipe
+
+                carousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, false);
+
+                carousel.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const swipeDistance = touchEndX - touchStartX;
+
+                    if (Math.abs(swipeDistance) > minSwipeDistance) {
+                        const carouselId = carousel.getAttribute('data-carousel-id');
+                        const direction = swipeDistance > 0 ? -1 : 1; // Swipe right = previous (-1), Swipe left = next (1)
+                        changeSlide(carouselId, direction);
+                    }
+                }, false);
+            });
+        });
     </script>
 </body>
 </html>
